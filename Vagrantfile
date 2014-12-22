@@ -22,30 +22,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         compute1_config.vm.network :private_network, ip:"192.168.200.20"
         config.vm.provider :virtualbox do |vb|
 		    vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
-            vb.customize ["modifyvm", :id, "--memory", "2900"]
-            vb.customize ["modifyvm", :id, "--cpus", "2"]
-			# vb.gui = true
-        end
-    end
-
-    config.vm.define :compute2 do |compute2_config|
-        compute2_config.vm.box = "trusty64_devstack"
-        compute2_config.vm.host_name = "compute2.example.com"
-        compute2_config.vm.network :private_network, ip:"192.168.100.30"
-        compute2_config.vm.network :private_network, ip:"192.168.200.30"
-        config.vm.provider :virtualbox do |vb|
-		    vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
             vb.customize ["modifyvm", :id, "--memory", "1500"]
             vb.customize ["modifyvm", :id, "--cpus", "2"]
 			# vb.gui = true
         end
     end
 
-    config.vm.define :access do |compute2_config|
-        compute2_config.vm.box = "trusty64"
-        compute2_config.vm.host_name = "access.example.com"
-        compute2_config.vm.network :private_network, ip:"192.168.100.40"
-        compute2_config.vm.network :private_network, ip:"192.168.200.40"
+    config.vm.define :access do |access_config|
+        access_config.vm.box = "trusty64"
+        access_config.vm.host_name = "access.example.com"
+        access_config.vm.network :private_network, ip:"192.168.100.30"
+        access_config.vm.network :private_network, ip:"192.168.200.30"
         config.vm.provider :virtualbox do |vb|
             vb.customize ["modifyvm", :id, "--memory", "256"]
             vb.customize ["modifyvm", :id, "--cpus", "1"]
